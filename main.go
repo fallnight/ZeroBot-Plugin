@@ -58,6 +58,8 @@ import (
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin_tracemoe"      // 搜番
 	_ "github.com/FloatTech/ZeroBot-Plugin/plugin_vtb_quotation" // vtb语录
 
+	_ "github.com/FloatTech/ZeroBot-Plugin/plugin_clock" // 青云客
+
 	// 以下为内置依赖，勿动
 	"github.com/fumiama/go-registry"
 	"github.com/sirupsen/logrus"
@@ -151,7 +153,7 @@ func main() {
 			// SuperUsers 某些功能需要主人权限，可通过以下两种方式修改
 			// "12345678", "87654321"：通过代码写死的方式添加主人账号
 			// flag.Args()：通过命令行参数的方式添加主人账号，无需修改下方任何代码
-			SuperUsers: append([]string{"12345678", "87654321"}, flag.Args()...),
+			SuperUsers: append([]string{"532000181"}, flag.Args()...),
 			Driver:     []zero.Driver{driver.NewWebSocketClient(*url, *token)},
 		},
 	)
