@@ -6,18 +6,19 @@ import (
 	"github.com/fumiama/cron"
 	zero "github.com/wdvxdr1123/ZeroBot"
 	"github.com/wdvxdr1123/ZeroBot/message"
+	"math/rand"
 	"time"
 )
 
 const (
-	res = "https://codechina.csdn.net/u011570312/ZeroBot-Plugin/-/raw/master/plugin_atri/"
+	res = "https://github.com/fallnight/ZeroBot-Plugin/tree/master/plugin_clock/hibiki/"
 )
 
 
 func init() { // 插件主体
 	// 定时任务每天10点执行一次0 0 8-0 * *
 	c := cron.New()
-	_, err := c.AddFunc("40 20 * * *", func() { sendNotice() })
+	_, err := c.AddFunc("25 21 * * *", func() { sendNotice() })
 	if err == nil {
 		c.Start()
 	}
@@ -67,11 +68,15 @@ func sendNotice() {
 				grp := g.Get("group_id").Int()
 				if m.IsEnabledIn(grp) {
 					var hour int = time.Now().Hour()
-					var hourStr string = fmt.Sprint("%02d",hour)
-					ctx.SendGroupMessage(grp,message.Record("hibiki/" + hourStr + ".wav"))
+					var hourStr string = fmt.Sprintf("%d", hour)
+					ctx.SendGroupMessage(grp,randRecord( hourStr + ".mp3"))
 				}
 			}
 			return true
 		})
 	}
+}
+
+func randRecord(file ...string) message.MessageSegment {
+	return message.Record(res + file[rand.Intn(len(file))])
 }
